@@ -55,17 +55,13 @@ mongoose.connection.on('error', function() {
 
 app.use(session({ 
   secret: 'my_precious_l@3', 
-  cookie: { maxAge: 60000 },
+  cookie: { maxAge: 3000000 },
   saveUninitialized: false, // don't create session until something stored 
-  resave: false, //don't save session if unmodified     
+  resave: true, //don't save session if unmodified     
+  rolling: true,
+  name: 'nightlife-app',
   store: new MongoStore({ mongooseConnection: mongoose.connection })
-}));   
-  
-app.use(session({
-  secret: 'my_precious_l@3',
-  resave: false,
-  saveUninitialized: true
-})); 
+}));  
 
 app.use(passport.initialize());
 app.use(passport.session());   
